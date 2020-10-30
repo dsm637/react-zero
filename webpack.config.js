@@ -1,14 +1,24 @@
 const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   mode: 'development',
-  entry: './src/index.tsx',
+  entry: {
+    main: path.resolve('./src/index.tsx')
+  },
   devServer: {
     publicPath: "/",
     contentBase: "./public",
     port: 3000,
     hot: true
   },
+  plugins: [
+    new HtmlWebpackPlugin({
+      title: 'WPR Boilerplate',
+      template: path.resolve(__dirname, './src/template.html'),
+      filename: 'index.html'
+    })
+  ],
   module: {
     rules: [
       {
@@ -22,7 +32,7 @@ module.exports = {
     extensions: [ '.tsx', '.ts', '.js' ],
   },
   output: {
-    filename: 'bundle.js',
     path: path.resolve(__dirname, 'dist'),
+    filename: 'bundle.js',
   },
 };
